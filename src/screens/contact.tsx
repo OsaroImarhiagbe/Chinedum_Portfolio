@@ -1,10 +1,11 @@
 'use client'
 import { motion } from "motion/react";
-
+import Header from "@/components/header";
 export default function Contact() {
   return (
     <section className="bg-[#0B0E16] text-white min-h-screen px-6 md:px-16 py-20 flex items-center justify-center">
       <div className="max-w-3xl w-full">
+        <Header/>
         {/* Header */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

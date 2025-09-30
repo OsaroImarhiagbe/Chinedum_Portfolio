@@ -2,450 +2,260 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
+import Header from '@/components/header';
 import { 
+  ChevronLeft,
+  ChevronRight,
   Play,
-  Pause, 
-  SkipForward, 
-  Heart, 
-  Download, 
-  MoreHorizontal } from 'lucide-react';
+} from 'lucide-react';
 
-export default function MusicHero() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-  const [activeParticle, setActiveParticle] = useState(0);
-
-  // Simulate audio progress
-  useEffect(() => {
-    let interval;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setCurrentTime(prev => (prev + 1) % 240); // 4 minutes
-      }, 1000);
+export default function FilmPortfolioHero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  // Portfolio items
+  const portfolioItems = [
+    {
+      title: "Tropical Smoothie",
+      category: "Music Video",
+      year: "2024",
+      image: "/assests/album.jpg",
+      description: "A vibrant visual journey through sound and color"
+    },
+    {
+      title: "City Nights",
+      category: "Commercial",
+      year: "2024",
+      image: "/assests/test4.jpg",
+      description: "Urban exploration and modern aesthetics"
+    },
+    {
+      title: "Genesis",
+      category: "Short Film",
+      year: "2023",
+      image: "/assests/album.jpg",
+      description: "An introspective look at new beginnings"
+    },
+    {
+      title: "Word Of God",
+      category: "Music Video",
+      year: "2023",
+      image: "/assests/test4.jpg",
+      description: "Powerful imagery meets spiritual storytelling"
     }
-    return () => clearInterval(interval);
-  }, [isPlaying]);
-
-  // Animate particles
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveParticle(prev => (prev + 1) % 6);
-    }, 800);
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const progress = (currentTime / 240) * 100;
-
-  const featuredTracks = [
-    { title: "Word Of God", artist: "Houdïnï CHïN", plays: "2.1M" },
-    { title: "Genesis", artist: "Houdïnï CHïN", plays: "1.8M" },
-    { title: "Far From Home", artist: "Houdïnï CHïN", plays: "3.2M" }
   ];
 
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % portfolioItems.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, portfolioItems.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % portfolioItems.length);
+    setIsAutoPlaying(false);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + portfolioItems.length) % portfolioItems.length);
+    setIsAutoPlaying(false);
+  };
+
+  const goToSlide = (index:number) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+  };
 
   return (
-    <section className="min-h-screen w-full relative overflow-hidden bg-[#0B0F14]">
-      {/* Image backgrground */}
-      <Image
-      src='/assests/About.png'
-      alt='city'
-      fill
-      priority
-      className='object-cover
-      '
-      quality={90}
-      sizes="100vw"
-      />
-      {/* Animated Background Elements */}
+    <section className="min-h-screen w-full flex bg-[#0B0F14] overflow-hidden">
+      {/* Left Sidebar Navigation */}
 
-      {/* Floating Music Particles */}
-      {/* <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 6 }, (_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute w-2 h-2 rounded-full ${
-              activeParticle === i 
-                ? 'bg-green-400' 
-                : 'bg-green-400/30'
-            }`}
-            style={{
-              left: `${20 + i * 12}%`,
-              top: `${30 + Math.sin(i) * 20}%`,
-            }}
-            variants={particleVariants}
-            animate="animate"
-            transition={{ delay: i * 0.2 }}
-          />
-        ))}
-      </div> */}
 
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-6 py-12">
-        <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen">
-          
-          {/* Left Content */}
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-          >
-        <motion.div className="space-y-4">
-              <motion.div 
-                className="inline-flex items-center space-x-2 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium"
-                animate={{
-                  y: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <motion.div 
-                  className="w-2 h-2 bg-green-400 rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.5, 1, 0.5]
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <span>Now Playing</span>
-              </motion.div>
-              
-              <motion.h1 
-                className="text-5xl lg:text-7xl font-bold text-white leading-tight"
-              >
-                I am
-                <motion.span 
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-purple-500"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  style={{
-                    backgroundSize: "200% 200%"
-                  }}
+      {/* Main Content Area - Carousel */}
+      <div className="flex-1 ml-20 lg:ml-24 relative bg-[#0B0F14]">
+        {/* Content Container */}
+        <div className="relative z-10 h-screen flex flex-col justify-between p-12 lg:p-16">
+          {/* Top Section - Project Info */}
+          <div className="flex-1 flex items-center gap-12">
+            {/* Left Side - Text Content */}
+            <Header/>
+            <motion.div 
+              className="flex-1 max-w-xl"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 30 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  Houdïnï CHïN
-                </motion.span>
-              </motion.h1>
-              
-              <motion.p 
-                className="text-xl text-gray-300 max-w-md leading-relaxed"
-              >
-                Embrace your inner self and transend a world beyond your imagination
-              </motion.p>
-            </motion.div>
-
-            {/* Featured Tracks */}
-            <motion.div className="space-y-4 mt-2">
-              <h3 className="text-lg font-semibold text-white">Trending Now</h3>
-              <div className="space-y-3">
-                {featuredTracks.map((track, index) => (
+                  {/* Category Badge */}
                   <motion.div 
-                    key={index}
-                    className="flex items-center space-x-4 bg-white/5 backdrop-blur-sm rounded-lg p-3 cursor-pointer"
-                    initial="hidden"
-                    animate="visible"
-                    whileHover="hover"
-                    transition={{ delay: index * 0.1 }}
+                    className="inline-flex items-center space-x-2 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-6"
+                    whileHover={{ scale: 1.05 }}
                   >
                     <motion.div 
-                      className="w-10 h-10 bg-gradient-to-br from-green-400 to-purple-500 rounded-lg flex items-center justify-center"
-                      whileHover={{ rotate: 180 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Play className="w-5 h-5 text-white" />
-                    </motion.div>
-                    <div className="flex-1">
-                      <p className="text-white font-medium">{track.title}</p>
-                      <p className="text-gray-400 text-sm">{track.artist}</p>
-                    </div>
-                    <motion.span 
-                      className="text-green-400 text-sm font-medium"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: (index * 0.1) + 0.3 }}
-                    >
-                      {track.plays}
-                    </motion.span>
+                      className="w-2 h-2 bg-green-400 rounded-full"
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.5, 1, 0.5]
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    <span>{portfolioItems[currentSlide].category}</span>
                   </motion.div>
-                ))}
-              </div>
+
+                  {/* Title */}
+                  <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight mb-4">
+                    {portfolioItems[currentSlide].title}
+                  </h1>
+
+                  {/* Description */}
+                  <p className="text-lg lg:text-xl text-gray-300 mb-6">
+                    {portfolioItems[currentSlide].description}
+                  </p>
+
+                  {/* Year */}
+                  <p className="text-lg text-white/60 font-medium">
+                    {portfolioItems[currentSlide].year}
+                  </p>
+
+                  {/* CTA Button */}
+                  <motion.button 
+                    className="mt-8 bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg inline-flex items-center space-x-2"
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 20px 40px rgba(34, 197, 94, 0.3)"
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Play className="w-5 h-5" />
+                    <span>Watch Project</span>
+                  </motion.button>
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div className="flex space-x-4 mt-4">
-              <motion.button 
-                className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg"
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 20px 40px rgba(34, 197, 94, 0.3)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-              >
-                Start Listening
-              </motion.button>
-              <motion.button 
-                className="border border-white/20 text-white px-8 py-4 rounded-full font-semibold backdrop-blur-sm"
-                whileHover={{ 
-                  scale: 1.05,
-                  backgroundColor: "rgba(255, 255, 255, 0.1)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-              >
-                Learn More
-              </motion.button>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Content - Music Player Card */}
-          <div className="lg:w-1/2 flex justify-center items-center mt-12 lg:mt-0">
+            {/* Right Side - Image Card */}
             <motion.div 
-              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/10 max-w-md w-full"
-
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
+              className="flex-1 max-w-2xl"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
             >
-              {/* Album Art */}
-              <div className="relative mb-6">
-                <motion.div 
-                  // className="w-64 h-64 mx-auto bg-gradient-to-br from-purple-500 via-pink-900 to-red-500 rounded-2xl shadow-2xl overflow-hidden"
-                  // whileHover={{ 
-                  //   scale: 1.02,
-                  //   rotateY: 5 
-                  // }}
-                  // transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
+                  transition={{ duration: 0.6 }}
+                  className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
                   <Image
-                  src="/assests/album.jpg"
-                  alt='cover'
-                  width={64}
-                  height={64}
-                  quality={100}
-                  className='w-64 h-64 mx-auto bg-gradient-to-br from-purple-500 via-pink-900 to-red-500 rounded-2xl shadow-2xl overflow-hidden'
+                    src={portfolioItems[currentSlide].image}
+                    alt={portfolioItems[currentSlide].title}
+                    fill
+                    className="object-cover"
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg" />
-                  <motion.div 
-                    className="absolute bottom-4 left-4 right-4"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 1 }}
-                  >
-                    <h3 className="text-white font-bold text-lg">Tropical Smoothie</h3>
-                    <p className="text-white/80">Houdïnï CHïN</p>
-                  </motion.div>
-                  {/* Rotating vinyl effect */}
-                  <motion.div 
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-black/30 rounded-full border-4 border-white/20"
-                    animate={isPlaying ? "spinning" : "stopped"}
-                  >
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white/20 rounded-full" />
-                  </motion.div>
+                  {/* Subtle overlay for better text readability if needed */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </motion.div>
-              </div>
-
-              {/* Song Info */}
-              <motion.div 
-                className="text-center mb-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-              >
-                <h4 className="text-white font-bold text-xl mb-1">Tropical Smoothie</h4>
-                <p className="text-gray-300">Houdïnï CHïN</p>
-              </motion.div>
-
-              {/* Progress Bar */}
-              <motion.div 
-                className="mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-              >
-                <div className="flex justify-between text-sm text-gray-400 mb-2">
-                  <motion.span
-                    key={currentTime}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {formatTime(currentTime)}
-                  </motion.span>
-                  <span>4:00</span>
-                </div>
-                <div className="h-1 bg-white/20 rounded-full overflow-hidden">
-                  <motion.div 
-                    className="h-full bg-gradient-to-r from-green-400 to-purple-500"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                  />
-                </div>
-              </motion.div>
-
-              {/* Controls */}
-              <motion.div 
-                className="flex items-center justify-center space-x-6 mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 }}
-              >
-                <motion.button 
-                  className={`p-2 rounded-full transition-all duration-300 ${isLiked ? 'text-red-500' : 'text-white/60'}`}
-                  onClick={() => setIsLiked(!isLiked)}
-                  animate={isLiked ? "liked" : "unliked"}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Heart className={`w-6 h-6 ${isLiked ? 'fill-current' : ''}`} />
-                </motion.button>
-                
-                <motion.button 
-                  className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg"
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  initial="initial"
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  <AnimatePresence mode="wait">
-                    {isPlaying ? (
-                      <motion.div
-                        key="pause"
-                        initial={{ opacity: 0, rotate: -90 }}
-                        animate={{ opacity: 1, rotate: 0 }}
-                        exit={{ opacity: 0, rotate: 90 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Pause className="w-6 h-6 text-black" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="play"
-                        initial={{ opacity: 0, rotate: -90 }}
-                        animate={{ opacity: 1, rotate: 0 }}
-                        exit={{ opacity: 0, rotate: 90 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Play className="w-6 h-6 text-black ml-1" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.button>
-                
-                <motion.button 
-                  className="text-white/60 hover:text-white transition-colors duration-300"
-                  whileHover={{ scale: 1.1, x: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <SkipForward className="w-6 h-6" />
-                </motion.button>
-              </motion.div>
-
-              {/* Additional Controls */}
-              <motion.div 
-                className="flex items-center justify-between text-white/60"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.4 }}
-              >
-                <motion.button 
-                  className="hover:text-white transition-colors duration-300"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Download className="w-5 h-5" />
-                </motion.button>
-                <motion.button 
-                  className="hover:text-white transition-colors duration-300"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <MoreHorizontal className="w-5 h-5" />
-                </motion.button>
-              </motion.div>
+              </AnimatePresence>
             </motion.div>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom Stats */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-      >
-        <div className="flex items-center space-x-8 text-white/60 text-sm">
-          <motion.div 
-            className="text-center"
-            whileHover={{ scale: 1.1, y: -5 }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          >
-            <motion.div 
-              className="text-2xl font-bold text-white"
-              animate={{ 
-                textShadow: ["0 0 0px rgba(34, 197, 94, 0)", "0 0 20px rgba(34, 197, 94, 0.5)", "0 0 0px rgba(34, 197, 94, 0)"]
-              }}
-              transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-            >
-              50M+
-            </motion.div>
-            <div>Songs</div>
-          </motion.div>
-          <div className="w-px h-8 bg-white/20" />
-          <motion.div 
-            className="text-center"
-            whileHover={{ scale: 1.1, y: -5 }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          >
-            <motion.div 
-              className="text-2xl font-bold text-white"
-              animate={{ 
-                textShadow: ["0 0 0px rgba(168, 85, 247, 0)", "0 0 20px rgba(168, 85, 247, 0.5)", "0 0 0px rgba(168, 85, 247, 0)"]
-              }}
-              transition={{ duration: 2, repeat: Infinity, delay: 0.7 }}
-            >
-              100M+
-            </motion.div>
-            <div>Users</div>
-          </motion.div>
-          <div className="w-px h-8 bg-white/20" />
-          <motion.div 
-            className="text-center"
-            whileHover={{ scale: 1.1, y: -5 }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          >
-            <motion.div 
-              className="text-2xl font-bold text-white"
-              animate={{ 
-                textShadow: ["0 0 0px rgba(34, 197, 94, 0)", "0 0 20px rgba(34, 197, 94, 0.5)", "0 0 0px rgba(34, 197, 94, 0)"]
-              }}
-              transition={{ duration: 2, repeat: Infinity, delay: 1.4 }}
-            >
-              24/7
-            </motion.div>
-            <div>Streaming</div>
-          </motion.div>
+          {/* Bottom Section - Navigation Controls */}
+          <div className="flex items-end justify-between">
+            {/* Slide Counter & Dots */}
+            <div className="flex items-center space-x-8">
+              {/* Counter */}
+              <motion.div 
+                className="text-white font-medium text-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <span className="text-3xl">{String(currentSlide + 1).padStart(2, '0')}</span>
+                <span className="text-white/40"> / {String(portfolioItems.length).padStart(2, '0')}</span>
+              </motion.div>
+
+              {/* Dots */}
+              <div className="flex items-center space-x-3">
+                {portfolioItems.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === currentSlide 
+                        ? 'w-12 bg-green-400' 
+                        : 'w-2 bg-white/30 hover:bg-white/50'
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            <div className="flex items-center space-x-4">
+              <motion.button
+                onClick={prevSlide}
+                className="w-14 h-14 cursor-pointer rounded-full border border-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/10 transition-colors duration-300"
+                whileHover={{ scale: 1.1, borderColor: 'rgba(255, 255, 255, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </motion.button>
+              
+              <motion.button
+                onClick={nextSlide}
+                className="w-14 h-14 cursor-pointer rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+                whileHover={{ 
+                  scale: 1.1,
+                  boxShadow: "0 10px 30px rgba(255, 255, 255, 0.3)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </motion.button>
+            </div>
+          </div>
         </div>
-      </motion.div>
+
+        {/* Scroll Hint */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="text-white/40 text-sm flex flex-col items-center"
+          >
+            <span className="mb-2">Scroll to explore</span>
+            <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent" />
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,13 +1,23 @@
 @import "tailwindcss";
 
 
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-spacegrotesk: 'Space Grotesk', sans-serif;
+}
+
+/* Base font classes */
+.font-inter {
+  font-family: var(--font-inter);
+}
+.html{
+  scroll-behavior:smooth;
+}
+.font-spacegrotesk {
+  font-family: var(--font-spacegrotesk);
+}
+
+
 body {
-  background: #0B0E16;
-  background-image: url('/assests/test.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  image-rendering: -webkit-optimize-contrast;
-  font-family: Arial, Helvetica, sans-serif;
-  color:#fff
+  font-family: var(--font-body);
 }
