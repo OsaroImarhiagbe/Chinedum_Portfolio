@@ -1,14 +1,13 @@
 // app/projects/[id]/page.tsx
 "use client";
-
 import { motion, AnimatePresence } from "motion/react";
 import Header from "@/components/header";
 import Image from "next/image";
-
+import Link from "next/link";
 const projects = {
   "4358": {
     title: "PEN IT DOWN",
-    image: "/assests/test4.jpg",
+    image: "/assests/pen.jpg",
     content:`Hold up , hold up, I think I just seen ISIS blown up. At least that's what they said in the news. 
     These days you’ll end up on an instant replay, on someone else’s TV.
     Government conspiracies, the paranoia taken its hold on me.
@@ -19,12 +18,13 @@ const projects = {
     The quicksand puling me down. 
     Till a voice said Wake up! Wake up! You ain’t done yet.
     Look at me fly now, mom look at me fly..watch me fly so high.`,
-    description: "An experimental music video exploring sound and visuals.",
+    link:'',
+    description: "A vivid journey through paranoia, struggle, and hope, finding peace and rising above the chaos.",
     year: 2024,
   },
   "4590": {
     title: "Better Tomorrow ",
-    image: "/assests/test4.jpg",
+    image: "/assests/better.jpg",
     content:`All we ever were promised was death, so I created my own destiny. 
     It's a shame that God keeps testing me.
     If God knew what was meant for me, why does it feel like Hell is all I will ever see?
@@ -48,13 +48,14 @@ const projects = {
     Cause what's the point of living, if I stay stuck in the same position? 
     I pray my niggas reach higher plains. 
     And have a better tomorrow, than we did today.`,
-    description: "A photo series capturing the streets and people of Ypsi.",
-    year: 2023,
+    link:'',
+    description: "A raw reflection on pain, purpose, and the fight to become more than what life and fate seem to allow.",
+    year: 2024,
   },
   "4678": {
     id: "2",
     title: "The End",
-    year: "2023",
+    year: 2024,
     image: "/assests/end.jpg",
     content:`Every end has a beginning At least we decided to start.
     We weren't born to live forever
@@ -77,24 +78,35 @@ const projects = {
     The cycle will never evolve.
     Cause what's an end without a beginning?
     I guess I'll never know till I start.`,
+    link:'',
+    description: "A poignant meditation on love, loss, and the endless cycle of beginnings and endings.",
+  },
+    "4546": {
+    id: "3",
+    title: "Boondocks",
+    year: 2024,
+    link:'/scripts/Thugtitious_Boondocks.pdf',
+    image: "/assests/boondocks.jpg",
+    content:'',
     description: "An introspective look at new beginnings",
   },
   "4589": {
-    id: "3",
-    title: "AGONY",
-    year: "2023",
-    image: "/assests/test4.jpg",
-    content:`Hold up , hold up, I think I just seen ISIS blown up. At least that&apos;s what they said in the news. 
-    These days you’ll end up on an instant replay, on someone else’s TV.
-    Government conspiracies, the paranoia taken its hold on me.
-    I’m just tryin to slow down and breathe.
-    Picture myself listening to Marley on the beach, with the sand in my feet, brush the waves in my hair as I strut to the beat. 
-    Between the space and lines is where I find my peace of mind. 
-    Seems I’m running out of time.
-    The quicksand puling me down. 
-    Till a voice said Wake up! Wake up! You ain’t done yet.
-    Look at me fly now, mom look at me fly..watch me fly so high.`,
+    id: "4",
+    title: "Agony",
+    year: 2024,
+    link: '/scripts/Agony.pdf',
+    image: "/assests/agony.jpg",
+    content:'',
     description: "Powerful imagery meets spiritual storytelling",
+  },
+  "4376": {
+    id: "5",
+    title: "Hellish Mindstate",
+    year: 2024,
+    image: "/assests/album.jpg",
+    link:'https://linktr.ee/chinedum.wejinya?lt_utm_source=lt_share_link#506350151',
+    content:'',
+    description: " Album out now on Apple Music, Spotify, TIDAL,and many more.... ",
   },
 };
 
@@ -143,9 +155,14 @@ export default function ProjectPage({ id }: { id: string }) {
           </AnimatePresence>
 
           {/* Project Info */}
-          <div className="mt-10 text-center">
-            <h1 className="font-spacegrotesk text-4xl font-bold">{project.title}</h1>
+          <div className="mt-10 text-center space-y-2">
+            <h1 className="font-spacegrotesk text-4xl font-bold uppercase">{project.title}</h1>
             <p className="font-spacegrotesk mt-4 text-lg text-gray-300">{project.description}</p>
+          { project.link && <button
+            className="font-spacegrotesk cursor-pointer px-4 py-2 bg-white text-black rounded-lg"
+            >
+              <Link href={project.link} target="_blank" rel="noopener noreferrer" className="cursor-pointer">{project.link.endsWith('.pdf') ? 'View Script' : 'All Platforms'}</Link>
+              </button>}
             <p className="font-spacegrotesk mt-2 text-sm text-gray-500">Year: {project.year}</p>
           </div>
         </motion.div>

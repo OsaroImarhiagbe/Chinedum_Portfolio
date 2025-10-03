@@ -8,47 +8,49 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-
-export default function FilmPortfolioHero() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const router = useRouter()
-  // Portfolio items
-  const portfolioItems = [
+const portfolioItems = [
     {
       id: "4358",
       title: "PEN IT DOWN",
       category: "Poem",
       year: "2024",
-      image: "/assests/album.jpg",
-      description: "A vibrant visual journey through sound and color"
+      image: "/assests/pen.jpg",
+      description: "A vivid journey through paranoia, struggle, and hope, finding peace and rising above the chaos."
     },
     {
       id:"4590",
       title: "Better Tomorrow",
       category: "Poem",
       year: "2024",
-      image: "/assests/test4.jpg",
-      description: "Urban exploration and modern aesthetics"
+      image: "/assests/better.jpg",
+      description: "A raw reflection on pain, purpose, and the fight to become more than what life and fate seem to allow."
     },
     {
       id:"4678",
       title: "The End",
       category: "Poem",
-      year: "2023",
+      year: "2024",
       image: "/assests/end.jpg",
-      description: "An introspective look at new beginnings"
+      description: "A poignant meditation on love, loss, and the endless cycle of beginnings and endings."
     },
     {
       id:"4589",
       title: "AGONY",
       category: "Script",
-      year: "2023",
-      image: "/assests/test4.jpg",
+      year: "2024",
+      image: "/assests/agony.jpg",
       description: "Powerful imagery meets spiritual storytelling"
     },
     {
-      id:"4589",
+      id:"4546",
+      title: "Boondocks",
+      category: "Script",
+      year: "2024",
+      image: "/assests/boondocks.jpg",
+      description: "Powerful imagery meets spiritual storytelling"
+    },
+    {
+      id:"4376",
       title: "HELLISH MINDSTATE",
       category: "Album",
       year: "2025",
@@ -56,7 +58,11 @@ export default function FilmPortfolioHero() {
       description: "Powerful imagery meets spiritual storytelling"
     }
   ];
-
+export default function FilmPortfolioHero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const router = useRouter()
+  
   // Auto-play carousel
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -66,7 +72,7 @@ export default function FilmPortfolioHero() {
     }, 5000);
     
     return () => clearInterval(interval);
-  }, [isAutoPlaying, portfolioItems.length]);
+  }, [isAutoPlaying]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % portfolioItems.length);
@@ -143,46 +149,49 @@ export default function FilmPortfolioHero() {
                 </motion.div>
               </AnimatePresence>
             </motion.div>
+            <motion.div 
+              className="flex-1 max-w-2xl"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
+                  transition={{ duration: 0.6 }}
+                  className="relative aspect-[4/5] overflow-hidden flex items-center justify-center"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* Image wrapper with group for hover */}
+                  <div className="relative group">
+                    <Image
+                      priority
+                      src={portfolioItems[currentSlide].image}
+                      alt={portfolioItems[currentSlide].title}
+                      className="object-contain"
+                      quality={100}
+                      width={700}
+                      height={750} 
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
 
-      <motion.div 
-        className="flex-1 max-w-2xl"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
-            transition={{ duration: 0.6 }}
-            className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl group"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            <Image
-              src={portfolioItems[currentSlide].image}
-              alt={portfolioItems[currentSlide].title}
-              fill
-              className="object-cover"
-              quality={100}
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-              {/* View button */}
-              <button
-              onClick={() => router.push(`/projects/${portfolioItems[currentSlide].id}`)}
-              className="font-spacegrotesk cursor-pointer px-4 py-2 bg-white text-black rounded-lg shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-4 transition duration-300">
-                View
-              </button>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
+                    {/* Overlay now directly on the image */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300">
+                      <button
+                        onClick={() => router.push(`/projects/${portfolioItems[currentSlide].id}`)}
+                        className="font-spacegrotesk cursor-pointer px-4 py-2 bg-white text-black rounded-lg shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-4 transition duration-300"
+                      >
+                        View
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
           </div>
-
           {/* Bottom Section - Navigation Controls */}
           <div className="flex items-end justify-between">
             {/* Slide Counter & Dots */}
