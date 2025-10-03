@@ -3,43 +3,56 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Header from '@/components/header';
+import { useRouter } from 'next/navigation';
 import { 
   ChevronLeft,
   ChevronRight,
-  Play,
 } from 'lucide-react';
 
 export default function FilmPortfolioHero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const router = useRouter()
   // Portfolio items
   const portfolioItems = [
     {
-      title: "Tropical Smoothie",
-      category: "Music Video",
+      id: "4358",
+      title: "PEN IT DOWN",
+      category: "Poem",
       year: "2024",
       image: "/assests/album.jpg",
       description: "A vibrant visual journey through sound and color"
     },
     {
-      title: "City Nights",
-      category: "Commercial",
+      id:"4590",
+      title: "Better Tomorrow",
+      category: "Poem",
       year: "2024",
       image: "/assests/test4.jpg",
       description: "Urban exploration and modern aesthetics"
     },
     {
-      title: "Genesis",
-      category: "Short Film",
+      id:"4678",
+      title: "The End",
+      category: "Poem",
       year: "2023",
-      image: "/assests/album.jpg",
+      image: "/assests/end.jpg",
       description: "An introspective look at new beginnings"
     },
     {
-      title: "Word Of God",
-      category: "Music Video",
+      id:"4589",
+      title: "AGONY",
+      category: "Script",
       year: "2023",
       image: "/assests/test4.jpg",
+      description: "Powerful imagery meets spiritual storytelling"
+    },
+    {
+      id:"4589",
+      title: "HELLISH MINDSTATE",
+      category: "Album",
+      year: "2025",
+      image: "/assests/album.jpg",
       description: "Powerful imagery meets spiritual storytelling"
     }
   ];
@@ -72,14 +85,10 @@ export default function FilmPortfolioHero() {
 
   return (
     <section className="min-h-screen w-full flex bg-[#0B0F14] overflow-hidden">
-      {/* Left Sidebar Navigation */}
-
-
       {/* Main Content Area - Carousel */}
       <div className="flex-1 ml-20 lg:ml-24 relative bg-[#0B0F14]">
         {/* Content Container */}
         <div className="relative z-10 h-screen flex flex-col justify-between p-12 lg:p-16">
-          {/* Top Section - Project Info */}
           <div className="flex-1 flex items-center gap-12">
             {/* Left Side - Text Content */}
             <Header/>
@@ -114,70 +123,64 @@ export default function FilmPortfolioHero() {
                         ease: "easeInOut"
                       }}
                     />
-                    <span>{portfolioItems[currentSlide].category}</span>
+                    <span className='font-spacegrotesk'>{portfolioItems[currentSlide].category}</span>
                   </motion.div>
 
                   {/* Title */}
-                  <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight mb-4">
+                  <h1 className="text-5xl font-spacegrotesk lg:text-7xl font-bold text-white leading-tight mb-4">
                     {portfolioItems[currentSlide].title}
                   </h1>
 
                   {/* Description */}
-                  <p className="text-lg lg:text-xl text-gray-300 mb-6">
+                  <p className="text-lg font-spacegrotesk lg:text-xl text-gray-300 mb-6">
                     {portfolioItems[currentSlide].description}
                   </p>
 
                   {/* Year */}
-                  <p className="text-lg text-white/60 font-medium">
+                  <p className="font-spacegrotesk text-lg text-white/60 font-medium">
                     {portfolioItems[currentSlide].year}
                   </p>
-
-                  {/* CTA Button */}
-                  <motion.button 
-                    className="mt-8 bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg inline-flex items-center space-x-2"
-                    whileHover={{ 
-                      scale: 1.05,
-                      boxShadow: "0 20px 40px rgba(34, 197, 94, 0.3)"
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Play className="w-5 h-5" />
-                    <span>Watch Project</span>
-                  </motion.button>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
 
-            {/* Right Side - Image Card */}
-            <motion.div 
-              className="flex-1 max-w-2xl"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentSlide}
-                  initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
-                  transition={{ duration: 0.6 }}
-                  className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  <Image
-                    src={portfolioItems[currentSlide].image}
-                    alt={portfolioItems[currentSlide].title}
-                    fill
-                    className="object-cover"
-                    quality={100}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  {/* Subtle overlay for better text readability if needed */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+      <motion.div 
+        className="flex-1 max-w-2xl"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
+            transition={{ duration: 0.6 }}
+            className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl group"
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            <Image
+              src={portfolioItems[currentSlide].image}
+              alt={portfolioItems[currentSlide].title}
+              fill
+              className="object-cover"
+              quality={100}
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            {/* Hover overlay */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+              {/* View button */}
+              <button
+              onClick={() => router.push(`/projects/${portfolioItems[currentSlide].id}`)}
+              className="font-spacegrotesk cursor-pointer px-4 py-2 bg-white text-black rounded-lg shadow-md opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-4 transition duration-300">
+                View
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+
           </div>
 
           {/* Bottom Section - Navigation Controls */}
@@ -191,8 +194,8 @@ export default function FilmPortfolioHero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <span className="text-3xl">{String(currentSlide + 1).padStart(2, '0')}</span>
-                <span className="text-white/40"> / {String(portfolioItems.length).padStart(2, '0')}</span>
+                <span className="font-spacegrotesk text-3xl">{String(currentSlide + 1).padStart(2, '0')}</span>
+                <span className="font-spacegrotesk text-white/40"> / {String(portfolioItems.length).padStart(2, '0')}</span>
               </motion.div>
 
               {/* Dots */}
@@ -251,7 +254,7 @@ export default function FilmPortfolioHero() {
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             className="text-white/40 text-sm flex flex-col items-center"
           >
-            <span className="mb-2">Scroll to explore</span>
+            <span className="font-spacegrotesk mb-2">Scroll to explore</span>
             <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent" />
           </motion.div>
         </motion.div>

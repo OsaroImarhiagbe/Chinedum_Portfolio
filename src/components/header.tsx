@@ -2,24 +2,25 @@
 import { motion} from 'motion/react';
 import { header } from '@/utils/data';
 import { useRouter, usePathname} from 'next/navigation';
-const Header = () => {
+import Link from 'next/link';
+const Header = ({id,content,name}:{id?:string,content?:string,name?:string}) => {
 
     const router = useRouter()
     const pathname = usePathname()
     return (
         <>
               <motion.div 
-        className="w-20 lg:w-24 flex flex-col items-center fixed left-0 top-0 z-50 h-screen py-8"
+        className="w-40 lg:w-100 flex flex-col items-center fixed left-0 top-0 z-50 h-screen py-8"
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >       
         {/* Centered content wrapper */}
         <div className="flex-1 flex flex-col items-start justify-evenly w-full px-4">
-          <h1 className='text-white font-spacegrotesk whitespace-nowrap'>Houdïnï CHïN</h1>
+          <h1 className='text-white font-spacegrotesk whitespace-nowrap cursor-pointer'><Link href='/'> Houdïnï CHïN</Link></h1>
           {/* Navigation Items */}
           <nav className="flex flex-col items-start space-y-6">
-              {header.map((item, index) => (
+              {!id && header.map((item, index) => (
               <motion.button
                 key={index}
                 onClick={() => router.push(item.link)}
@@ -32,6 +33,11 @@ const Header = () => {
                 {item.name}
               </motion.button>
             ))}
+          
+              { id && <>
+              <h1 className='text-green-500/60 font-spacegrotesk whitespace-nowrap'>{name}</h1>
+            <p className="text-white/70 text-sm font-spacegrotesk leading-relaxed max-w-lg">{content}</p> </> }
+           
           </nav>
           <div>
             <p className='text-white/60 text-sm font-spacegrotesk'>@ 2025</p>

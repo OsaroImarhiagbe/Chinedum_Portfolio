@@ -1,78 +1,156 @@
-'use client'
-import { motion } from "motion/react";
-import Image from "next/image";
-import Card from "@/components/card";
-import { FaLinkedinIn, FaYoutube, FaGithub, FaInstagram } from 'react-icons/fa';
-const projects = [
-  {
-    title: "Midnight Reflections",
-    type: "Houdïnï CHïN",
-    image: "#",
-    link: "#",
-  },
-  {
-    title: "Echoes in the City",
-    type: "Houdïnï CHïN",
-    image: "#",
-    link: "#",
-  },
-  {
-    title: "Neon Dreams",
-    type: "Houdïnï CHïN",
-    image: "#",
-    link: "#",
-  },
-];
+// app/projects/[id]/page.tsx
+"use client";
 
-export default function Projects() {
-  return (
-     <section id='about' className="relative min-h-screen bg-[#0B0E16] text-white px-10 py-20">
-       {/* Background image */}
-       <Image
-         src="/assests/music.png"
-         alt="Uchiha Background"
-         fill
-         className="object-cover"
-         priority
-         quality={100}
-          sizes="(max-width: 768px) 100vw, 
-               (max-width: 1200px) 100vw, 
-               100vw"
-       />
-       {/* header */}
-       <div className="flex items-center justify-center text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="absolute text-center text-4xl md:text-5xl font-bold tracking-wide"
-        >
-          Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-purple-500">Music</span>
-        </motion.h2>
-       </div>
-      <div className="mt-40">
-        {/* Project Grid */}
-        <div className="grid md:grid-cols-3 gap-10">
-          {projects.map((project, idx) => (
-              <Card key={idx} musicTitle={project.title} artists={project.type}/>
-          ))}
-        </div>
+import { motion, AnimatePresence } from "motion/react";
+import Header from "@/components/header";
+import Image from "next/image";
+
+const projects = {
+  "4358": {
+    title: "PEN IT DOWN",
+    image: "/assests/test4.jpg",
+    content:`Hold up , hold up, I think I just seen ISIS blown up. At least that's what they said in the news. 
+    These days you’ll end up on an instant replay, on someone else’s TV.
+    Government conspiracies, the paranoia taken its hold on me.
+    I’m just tryin to slow down and breathe.
+    Picture myself listening to Marley on the beach, with the sand in my feet, brush the waves in my hair as I strut to the beat. 
+    Between the space and lines is where I find my peace of mind. 
+    Seems I’m running out of time.
+    The quicksand puling me down. 
+    Till a voice said Wake up! Wake up! You ain’t done yet.
+    Look at me fly now, mom look at me fly..watch me fly so high.`,
+    description: "An experimental music video exploring sound and visuals.",
+    year: 2024,
+  },
+  "4590": {
+    title: "Better Tomorrow ",
+    image: "/assests/test4.jpg",
+    content:`All we ever were promised was death, so I created my own destiny. 
+    It's a shame that God keeps testing me.
+    If God knew what was meant for me, why does it feel like Hell is all I will ever see?
+    I'm starting to become the man my parents  thought I would never be.
+    I feel like I'm on my last leg and death is the only thing left for me.
+    But if I was born for a greater purpose, why everyday do I keep on hurting? 
+    Was it to feel the pain of the people before they entered those hearses? 
+    Or was it just for me to understand that everyones hurting.
+    We all have a way, I mean at least that's what they say. 
+    “You can do anything you put your mind to.”
+    So why the fuck do they keep trying to stop me from doing it?!
+    Or are they afraid?
+    They settled for the easy route and now they feel like there’s no way out.
+    But I don't want that for me. I want to be the greatest Me I can be, so why is my conscience scaring me? 
+    It's Adam's fault cause he ate from that forbidden tree.  
+    It didn't give us sin.
+    It made us aware of everything we could be, but also what's happening in reality. 
+    So till the end of time I'm battling thoughts in my head.
+    I just want to do what I want, before I end up dead. 
+    Cause in the end I might just kill myself instead. 
+    Cause what's the point of living, if I stay stuck in the same position? 
+    I pray my niggas reach higher plains. 
+    And have a better tomorrow, than we did today.`,
+    description: "A photo series capturing the streets and people of Ypsi.",
+    year: 2023,
+  },
+  "4678": {
+    id: "2",
+    title: "The End",
+    year: "2023",
+    image: "/assests/end.jpg",
+    content:`Every end has a beginning At least we decided to start.
+    We weren't born to live forever
+    Even though I wish that was in the cards.
+    They say everything ends
+    But I don't want to hear that at all.
+    Cause I'm trying to have a happy ending
+    I guess that's where the contradictions start.
+    Even races have a finish.
+    The path I don't remember at all
+    Cause how could I ever be focused on the moment
+    When the only celebration i've know is getting to the destination.
+    Every end has a beginning.
+    I wish we never started at all
+    Cause how could you say you loved me Now our relationship has fallen apart.
+    Till death do us part, didn't that mean something?
+    I guess death also meant the end
+    Maybe the end is good cause now I can pick up where I left off.
+    Cause to start is to finish.
+    The cycle will never evolve.
+    Cause what's an end without a beginning?
+    I guess I'll never know till I start.`,
+    description: "An introspective look at new beginnings",
+  },
+  "4589": {
+    id: "3",
+    title: "AGONY",
+    year: "2023",
+    image: "/assests/test4.jpg",
+    content:`Hold up , hold up, I think I just seen ISIS blown up. At least that&apos;s what they said in the news. 
+    These days you’ll end up on an instant replay, on someone else’s TV.
+    Government conspiracies, the paranoia taken its hold on me.
+    I’m just tryin to slow down and breathe.
+    Picture myself listening to Marley on the beach, with the sand in my feet, brush the waves in my hair as I strut to the beat. 
+    Between the space and lines is where I find my peace of mind. 
+    Seems I’m running out of time.
+    The quicksand puling me down. 
+    Till a voice said Wake up! Wake up! You ain’t done yet.
+    Look at me fly now, mom look at me fly..watch me fly so high.`,
+    description: "Powerful imagery meets spiritual storytelling",
+  },
+};
+
+export default function ProjectPage({ id }: { id: string }) {
+  const project = projects[id as keyof typeof projects];
+
+  if (!project) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0B0F14] text-white">
+        <p className="text-lg font-medium">Project not found.</p>
       </div>
-     </section>
+    );
+  }
+
+  return (
+    <section className="min-h-screen bg-[#0B0F14] text-white flex">
+      {/* Side Header */}
+      <Header id={id} content={project.content} name={project.title}/>
+
+      {/* Main Project Content */}
+      <div className="flex-1 flex justify-center items-center px-8 py-16">
+        <motion.div
+          className="max-w-lg w-full"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
+              transition={{ duration: 0.6 }}
+              className="relative aspect-[4/5] rounded-2xl overflow-hidden group mx-auto"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <Image
+                src={project.image}
+                alt={project.description}
+                fill
+                className="object-contain rounded-2xl"
+                quality={100}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Project Info */}
+          <div className="mt-10 text-center">
+            <h1 className="font-spacegrotesk text-4xl font-bold">{project.title}</h1>
+            <p className="font-spacegrotesk mt-4 text-lg text-gray-300">{project.description}</p>
+            <p className="font-spacegrotesk mt-2 text-sm text-gray-500">Year: {project.year}</p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
-    //  <Image
-    //         src="/assests/aboutname.png"
-    //         alt="Uchiha Background"
-    //         fill
-    //         className="object-cover object-center"
-    //         priority
-    //         quality={100}
-    //       /> 
-
-
-      // className="relative z-10 grid md:grid-cols-2 gap-12 max-w-6xl mx-auto"
-
-      // className="bg-[#0B0E16] text-white min-h-screen px-6 md:px-16 py-20
