@@ -29,10 +29,10 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-spacegrotesk max-w-xl mx-auto py-2 text-gray-300 text-base md:text-lg leading-relaxed"
+          className="font-spacegrotesk text-center max-w-xl mx-auto py-2 text-gray-300 text-base md:text-lg leading-relaxed"
         >
           Connect with me on my socials.
-          Tell me about your project, your sound, and your vision — I&apos;ll listen, review the details, and get back to you with a personalized approach to bring your music to life.
+          Tell me about your project, your sound, and your vision.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

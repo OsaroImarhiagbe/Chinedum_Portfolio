@@ -65,7 +65,7 @@ export default function About() {
             <ul className="flex gap-6 font-spacegrotesk text-base md:text-lg leading-relaxed">
             <li className="flex items-center before:mr-2">Film</li>
             <li className="flex items-center before:content-['•'] before:mr-2">Photography</li>
-            <li className="flex items-center before:content-['•'] before:mr-2">Movies</li>
+            <li className="flex items-center before:content-['•'] before:mr-2">Writing</li>
             </ul>
           </motion.div>
 
