@@ -6,14 +6,13 @@ export default function Contact() {
     <section className="bg-[#0B0E16] text-white min-h-screen px-6 md:px-16 py-20 flex items-center justify-center">
       <div className="max-w-3xl w-full">
         <Header/>
-        {/* Header */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold tracking-wide text-center mb-14"
+          className="font-spacegrotesk text-4xl md:text-5xl font-bold tracking-wide text-center mb-14"
         >
-          Get in <span className="text-cyan-400">Touch</span>
+          Get in <span className="text-green-500">Touch</span>
         </motion.h2>
 
         <motion.p
@@ -21,7 +20,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           viewport={{ once: true }}
-          className="text-gray-400 text-center mb-12"
+          className="font-spacegrotesk text-gray-400 text-center mb-12"
         >
           Whether it’s poetry, music, or collaboration, I’d love to hear from you.
         </motion.p>
@@ -30,12 +29,11 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-xl mx-auto py-2 text-gray-300 text-base md:text-lg leading-relaxed"
+          className="font-spacegrotesk max-w-xl mx-auto py-2 text-gray-300 text-base md:text-lg leading-relaxed"
         >
-          Shoot me an email or connect with me on any of my socials.  
-          Tell me about your project, your goals, and your vision — I’ll review the details and get back to you with a personalized quote to bring your ideas to life.
+          Connect with me on my socials.
+          Tell me about your project, your sound, and your vision — I&apos;ll listen, review the details, and get back to you with a personalized approach to bring your music to life.
         </motion.p>
-        {/* Social Links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,9 +41,9 @@ export default function Contact() {
           viewport={{ once: true }}
           className="mt-12 flex justify-center space-x-8 text-gray-400"
         >
-          <a href="#" className="hover:text-cyan-400 transition">Instagram</a>
-          <a href="#" className="hover:text-cyan-400 transition">Spotify</a>
-          <a href="#" className="hover:text-cyan-400 transition">Twitter</a>
+          <a href="https://www.instagram.com/youngchin35?igsh=MXhkdzk0eXNvdmVlcg%3D%3D&utm_source=qr" className="font-spacegrotesk hover:text-cyan-400 transition">Instagram</a>
+          <a href="https://www.linkedin.com/in/chinedum-wejinya-09a62a133?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" className="font-spacegrotesk hover:text-cyan-400 transition">Linkedin</a>
+          <a href="https://x.com/youngchin35/status/1132092368482652161?s=46&t=bKN01H14h-sjUpoIQ4ivsA" className="font-spacegrotesk hover:text-cyan-400 transition">Twitter</a>
         </motion.div>
       </div>
     </section>

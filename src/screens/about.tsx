@@ -20,8 +20,6 @@ export default function About() {
     >
       <Header />
       <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-        
-        {/* Left Column - About */}
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -40,10 +38,7 @@ export default function About() {
             fosters meaningful conversations and creates shared spaces.
           </p>
         </motion.div>
-
-        {/* Right Column - Specialties + Work */}
         <div className="flex flex-col justify-center space-y-12">
-          {/* Work */}
           <motion.div
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
@@ -58,7 +53,6 @@ export default function About() {
             <li className="flex items-center before:content-['•'] before:mr-2">PEN IT DOWN</li>
           </ul>
           </motion.div>
-          {/* Specialties */}
           <motion.div
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
@@ -80,20 +74,3 @@ export default function About() {
     </section>
   );
 }
-
-         {/* Left - Image */}
-        // <motion.div
-        //   initial={{ opacity: 0, x: -50 }}
-        //   animate={{ opacity: 1, x: 0 }}
-        //   transition={{ duration: 0.8 }}
-        //   className="flex justify-center items-center"
-        // >
-        //   <div className="relative w-[300px] h-[300px]">
-        //     <Image
-        //       src='/'
-        //       alt="Osaro"
-        //       fill
-        //       className="rounded-full border-4 border-red-600 object-cover shadow-lg shadow-red-600/30"
-        //     />
-        //   </div>
-        // </motion.div>

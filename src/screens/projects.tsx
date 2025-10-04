@@ -1,4 +1,4 @@
-// app/projects/[id]/page.tsx
+
 "use client";
 import { motion, AnimatePresence } from "motion/react";
 import Header from "@/components/header";
@@ -79,7 +79,7 @@ const projects = {
     Cause what's an end without a beginning?
     I guess I'll never know till I start.`,
     link:'',
-    description: "A poignant meditation on love, loss, and the endless cycle of beginnings and endings.",
+    description: "A meditation on love, loss, and the endless cycle of beginnings and endings.",
   },
     "4546": {
     id: "3",
@@ -88,7 +88,7 @@ const projects = {
     link:'/scripts/Thugtitious_Boondocks.pdf',
     image: "/assests/boondocks.jpg",
     content:'',
-    description: "An introspective look at new beginnings",
+    description: "Thugnificent is fed up with his long hours as an amazon delivery driver and wants his old life as a rapper back, but the rap game isn't quite how he remembers it."
   },
   "4589": {
     id: "4",
@@ -97,7 +97,7 @@ const projects = {
     link: '/scripts/Agony.pdf',
     image: "/assests/agony.jpg",
     content:'',
-    description: "Powerful imagery meets spiritual storytelling",
+    description:"Now a grown man John struggles to deal with the death of his father. Emotions he thought he dealt with come rushing back",
   },
   "4376": {
     id: "5",
@@ -123,10 +123,7 @@ export default function ProjectPage({ id }: { id: string }) {
 
   return (
     <section className="min-h-screen bg-[#0B0F14] text-white flex">
-      {/* Side Header */}
       <Header id={id} content={project.content} name={project.title}/>
-
-      {/* Main Project Content */}
       <div className="flex-1 flex justify-center items-center px-8 py-16">
         <motion.div
           className="max-w-lg w-full"
@@ -153,8 +150,6 @@ export default function ProjectPage({ id }: { id: string }) {
               />
             </motion.div>
           </AnimatePresence>
-
-          {/* Project Info */}
           <div className="mt-10 text-center space-y-2">
             <h1 className="font-spacegrotesk text-4xl font-bold uppercase">{project.title}</h1>
             <p className="font-spacegrotesk mt-4 text-lg text-gray-300">{project.description}</p>
@@ -164,6 +159,7 @@ export default function ProjectPage({ id }: { id: string }) {
               <Link href={project.link} target="_blank" rel="noopener noreferrer" className="cursor-pointer">{project.link.endsWith('.pdf') ? 'View Script' : 'All Platforms'}</Link>
               </button>}
             <p className="font-spacegrotesk mt-2 text-sm text-gray-500">Year: {project.year}</p>
+            <p className="block md:hidden text-white/70 text-sm font-spacegrotesk leading-relaxed max-w-lg">{project.content}</p> 
           </div>
         </motion.div>
       </div>

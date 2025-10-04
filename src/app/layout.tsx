@@ -29,16 +29,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Houdïnï CHïN" }],
   creator: "Houdïnï CHïN",
   publisher: "Houdïnï CHïN",
-  metadataBase: new URL("https://yourdomain.com"), // update with real domain
+  metadataBase: new URL("https://www.chinedumwejinya.com"),
   openGraph: {
     type: "website",
-    url: "https://yourdomain.com",
+    url: "https://www.chinedumwejinya.com",
     title: "Houdïnï CHïN | Music Portfolio",
     description: "Discover Houdïnï CHïN's creative journey – music, visuals, and storytelling.",
     siteName: "Houdïnï CHïN",
     images: [
       {
-        url: "/assests/album.jpg", // put a real OG image
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Houdïnï CHïN music portfolio cover",
@@ -47,11 +47,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@yourhandle", // replace with your Twitter/Instagram if you want
-    creator: "@yourhandle",
+    site: "@Youngchin35",
+    creator: "@Youngchin35",
     title: "Houdïnï CHïN | Music Portfolio",
     description: "My music, my way. Discover Houdïnï CHïN's creative world.",
-    images: ["/assests/album.jpg"],
+    images: [
+      {
+      url:"https://www.chinedumwejinya.com/og-image.png"
+    }],
   },
   icons: {
     icon: "/favicon.ico",
