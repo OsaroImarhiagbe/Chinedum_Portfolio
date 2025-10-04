@@ -83,7 +83,7 @@ const projects = {
   },
     "4546": {
     id: "3",
-    title: "Boondocks",
+    title: "Thugtitious (Boondocks spec script)",
     year: 2024,
     link:'/scripts/Thugtitious_Boondocks.pdf',
     image: "/assests/boondocks.jpg",

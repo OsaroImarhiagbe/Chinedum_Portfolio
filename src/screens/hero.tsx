@@ -43,7 +43,7 @@ const portfolioItems = [
     },
     {
       id:"4546",
-      title: "Boondocks",
+      title: "Thugtitious (Boondocks spec script)",
       category: "Script",
       year: "2024",
       image: "/assests/boondocks.jpg",
